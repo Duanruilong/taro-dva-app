@@ -1,0 +1,3 @@
+<block wx:if="{{$taroCompReady}}">
+    <view class="home-page">home11111111</view>
+</block>

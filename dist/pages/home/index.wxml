@@ -1,3 +1,5 @@
 <block wx:if="{{$taroCompReady}}">
-    <view class="home-page">home11111111</view>
+    <view class="homePage">
+        <ban-swiper compid="{{$compid__0}}"></ban-swiper>
+    </view>
 </block>

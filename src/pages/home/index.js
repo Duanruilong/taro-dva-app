@@ -3,22 +3,35 @@ import { View } from '@tarojs/components';
 import { connect } from '@tarojs/redux';
 import './index.scss';
 
+import BanSwiper from "../../components/BanSwiper";
+
 @connect(({home}) => ({
   ...home,
 }))
 export default class Home extends Component {
   config = {
-    navigationBarTitleText: 'home',
+    navigationBarTitleText: '首页',
   };
+  //分享
+  onShareAppMessage() {
+    return {
+      title: '基于Taro框架开发',
+      path: '/pages/home/index',
+    };
+  }
 
   componentDidMount = () => {
-
+    // 获取数据
+    this.props.dispatch({
+      type: 'home/load',
+    });
   };
 
   render() {
+    const { banner, brands, products_list, effects } = this.props;
     return (
-      <View className="home-page">
-        home11111111
+      <View className="homePage">
+        <BanSwiper banner={banner} home></BanSwiper>
       </View>
     )
   }

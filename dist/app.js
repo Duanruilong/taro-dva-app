@@ -71,7 +71,7 @@ var _App = function (_BaseComponent) {
       pages: ['pages/home/index', 'pages/list/index', 'pages/user/index'],
       window: {
         backgroundTextStyle: 'light',
-        navigationBarBackgroundColor: '#fef',
+        navigationBarBackgroundColor: '#147FFB',
         navigationBarTitleText: 'WeChat',
         navigationBarTextStyle: 'black'
       },

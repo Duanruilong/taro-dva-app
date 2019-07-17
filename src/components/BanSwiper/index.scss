@@ -1,0 +1,21 @@
+@import '../../styles/mixin';
+
+.swiper-container {
+  width: 100%;
+  min-height: 400px;
+  height: 100%;
+}
+
+.swiper {
+  margin:3vw;
+  height: 400px;
+  image {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 1px solid #ddd;
+    height: 400px !important;
+  }
+  // img {
+  //   height: 400px !important;
+  // }
+}

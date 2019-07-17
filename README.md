@@ -1,4 +1,4 @@
-# edu-taro-app 小程序
+# taro-dva-app 小程序
 
 # 环境配置：
 - 安装node

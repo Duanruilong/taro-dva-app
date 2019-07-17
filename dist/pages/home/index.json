@@ -1,4 +1,6 @@
 {
-  "usingComponents": {},
-  "navigationBarTitleText": "home"
+  "usingComponents": {
+    "ban-swiper": "../../components/BanSwiper/index"
+  },
+  "navigationBarTitleText": "首页"
 }

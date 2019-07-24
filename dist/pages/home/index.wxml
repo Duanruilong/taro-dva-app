@@ -1,5 +1,16 @@
 <block wx:if="{{$taroCompReady}}">
     <view class="homePage">
-        <ban-swiper compid="{{$compid__0}}"></ban-swiper>
+        <ban-swiper compid="{{$compid__84}}"></ban-swiper>
+        <view class="centBox"><text class="recommend">为你推荐</text>
+        </view>
+        <view class="centPai">
+            <view bindtap="gotoDetail" class="centList" wx:key="index" wx:for="{{brands}}" wx:for-item="item" wx:for-index="index" data-e-tap-so="this" data-e-tap-a-a="{{item}}">
+                <image mode="widthFix" src="{{item.image_src}}"></image>
+            </view>
+        </view><text class="recommend">女神名人堂</text>
+        <view class="goddess">
+            <ban-swiper compid="{{$compid__85}}"></ban-swiper>
+        </view><text class="recommend">为你推荐</text>
+        <good-list compid="{{$compid__86}}"></good-list>
     </view>
 </block>

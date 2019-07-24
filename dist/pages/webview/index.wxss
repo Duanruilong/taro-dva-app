@@ -10,16 +10,6 @@
 -------------------------- */
 /* methods
 -------------------------- */
-.swiper-container {
+.webview-page {
   width: 100%;
-  min-height: 400rpx;
   height: 100%; }
-
-.swiper {
-  height: 380rpx;
-  overflow: hidden; }
-  .swiper image {
-    width: 100%;
-    -webkit-box-shadow: 1rpx solid #ddd;
-            box-shadow: 1rpx solid #ddd;
-    background-attachment: scroll; }

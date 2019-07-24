@@ -7,13 +7,15 @@
 }
 
 .swiper {
-  margin:3vw;
-  height: 400px;
+  // padding:3vw;
+  height: 380px;
+  overflow: hidden;
   image {
     width: 100%;
-    border-radius: 12px;
+    // border-radius: 12px;
     box-shadow: 1px solid #ddd;
-    height: 400px !important;
+    background-attachment: scroll;
+    // height: 400px !important;
   }
   // img {
   //   height: 400px !important;

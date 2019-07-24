@@ -68,10 +68,11 @@ var _App = function (_BaseComponent) {
     }
 
     return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _App.__proto__ || Object.getPrototypeOf(_App)).call.apply(_ref, [this].concat(args))), _this), _this.config = {
-      pages: ['pages/home/index', 'pages/list/index', 'pages/user/index'],
+      pages: ['pages/home/index', 'pages/list/index', 'pages/user/index', 'pages/webview/index'],
       window: {
         backgroundTextStyle: 'light',
-        navigationBarBackgroundColor: '#147FFB',
+        // navigationBarBackgroundColor: '#147FFB',
+        navigationBarBackgroundColor: '#fff',
         navigationBarTitleText: 'WeChat',
         navigationBarTextStyle: 'black'
       },

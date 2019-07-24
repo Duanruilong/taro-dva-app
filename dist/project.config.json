@@ -1,15 +1,13 @@
 {
-	"projectname": "edu-taro-app",
-	"description": "我的taro项目，微信小程序",
-	"appid": "wx1e90f0a22154eb50",
-	"setting": {
-		"urlCheck": true,
-		"es6": false,
-		"postcss": false,
-		"minified": false
-	},
-	"compileType": "miniprogram",
-	"simulatorType": "wechat",
-	"simulatorPluginLibVersion": {},
-	"condition": {}
+  "miniprogramRoot": "./",
+  "projectname": "taro-dva-app",
+  "description": "我的taro项目，微信小程序",
+  "appid": "wx1e90f0a22154eb50",
+  "setting": {
+    "urlCheck": true,
+    "es6": false,
+    "postcss": false,
+    "minified": false
+  },
+  "compileType": "miniprogram"
 }

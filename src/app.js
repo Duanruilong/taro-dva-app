@@ -25,11 +25,13 @@ class App extends Component {
     pages: [
       'pages/home/index',
       'pages/list/index',
-      'pages/user/index'
+      'pages/user/index',
+      'pages/webview/index',
     ],
     window: {
       backgroundTextStyle: 'light',
-      navigationBarBackgroundColor: '#147FFB',
+      // navigationBarBackgroundColor: '#147FFB',
+      navigationBarBackgroundColor: '#fff',
       navigationBarTitleText: 'WeChat',
       navigationBarTextStyle: 'black'
     },

@@ -1,6 +1,7 @@
 {
   "usingComponents": {
-    "ban-swiper": "../../components/BanSwiper/index"
+    "ban-swiper": "../../components/BanSwiper/index",
+    "good-list": "../../components/GoodList/index"
   },
   "navigationBarTitleText": "首页"
 }

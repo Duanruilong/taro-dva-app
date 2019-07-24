@@ -1,0 +1,5 @@
+<block wx:if="{{$taroCompReady}}">
+    <view class="webview-page">
+        <web-view src="{{_value}}"></web-view>
+    </view>
+</block>

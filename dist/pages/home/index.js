@@ -27,8 +27,9 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var Home = (_dec = (0, _index3.connect)(function (_ref) {
-  var home = _ref.home;
-  return _extends({}, home);
+  var home = _ref.home,
+      loading = _ref.loading;
+  return _extends({}, home, loading);
 }), _dec(_class = (_temp2 = _class2 = function (_BaseComponent) {
   _inherits(Home, _BaseComponent);
 
@@ -43,14 +44,30 @@ var Home = (_dec = (0, _index3.connect)(function (_ref) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref2 = Home.__proto__ || Object.getPrototypeOf(Home)).call.apply(_ref2, [this].concat(args))), _this), _this.$usedState = ["$compid__0", "dispatch", "banner", "brands", "products_list", "effects"], _this.config = {
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref2 = Home.__proto__ || Object.getPrototypeOf(Home)).call.apply(_ref2, [this].concat(args))), _this), _this.$usedState = ["$compid__84", "$compid__85", "$compid__86", "brands", "dispatch", "page", "banneret", "banner", "productsList", "effects"], _this.config = {
       navigationBarTitleText: '首页'
     }, _this.componentDidMount = function () {
       // 获取数据
       _this.props.dispatch({
         type: 'home/load'
       });
-    }, _this.customComponents = ["BanSwiper"], _temp), _possibleConstructorReturn(_this, _ret);
+
+      _this.props.dispatch({
+        type: 'home/product',
+        payload: {
+          page: 1,
+          mode: 1,
+          type: 1,
+          filter: 'sort:recomm|c:330602'
+        }
+      });
+    }, _this.gotoDetail = function (item) {
+      console.log('item', item);
+
+      _index2.default.navigateTo({
+        url: "/pages/webview/index?value=" + item.value1.split('?')[0] + "&" + item.value1.split('?')[1]
+      });
+    }, _this.customComponents = ["BanSwiper", "GoodList"], _temp), _possibleConstructorReturn(_this, _ret);
   }
 
   _createClass(Home, [{
@@ -71,6 +88,28 @@ var Home = (_dec = (0, _index3.connect)(function (_ref) {
       };
     }
   }, {
+    key: "onReachBottom",
+
+
+    // 小程序上拉加载
+    value: function onReachBottom() {
+      this.props.dispatch({
+        type: 'home/save',
+        payload: {
+          page: this.props.page + 1
+        }
+      });
+      this.props.dispatch({
+        type: 'home/product',
+        payload: {
+          page: this.props.page + 1,
+          mode: 1,
+          type: 1,
+          filter: 'sort:recomm|c:330602'
+        }
+      });
+    }
+  }, {
     key: "_createData",
     value: function _createData() {
       this.__state = arguments[0] || this.state || {};
@@ -78,27 +117,45 @@ var Home = (_dec = (0, _index3.connect)(function (_ref) {
       var __isRunloopRef = arguments[2];
       var __prefix = this.$prefix;
       ;
-      var $compid__0 = (0, _index.genCompid)(__prefix + "$compid__0");
+      var $compid__84 = (0, _index.genCompid)(__prefix + "$compid__84");
+      var $compid__85 = (0, _index.genCompid)(__prefix + "$compid__85");
+      var $compid__86 = (0, _index.genCompid)(__prefix + "$compid__86");
 
       var _props = this.__props,
+          banneret = _props.banneret,
           banner = _props.banner,
           brands = _props.brands,
-          products_list = _props.products_list,
+          productsList = _props.productsList,
           effects = _props.effects;
 
+      console.log('this.props====>>>', this.__props);
+
       _index.propsManager.set({
-        "banner": banner,
+        "banneret": banneret.special_topics,
+        "banner": banneret.stars,
         "home": true
-      }, $compid__0);
+      }, $compid__84);
+      _index.propsManager.set({
+        "banneret": banneret.stars,
+        "banner": banneret.stars,
+        "home": false
+      }, $compid__85);
+      _index.propsManager.set({
+        "list": productsList,
+        "loading": effects && effects['home/product']
+      }, $compid__86);
       Object.assign(this.__state, {
-        $compid__0: $compid__0
+        $compid__84: $compid__84,
+        $compid__85: $compid__85,
+        $compid__86: $compid__86,
+        brands: brands
       });
       return this.__state;
     }
   }]);
 
   return Home;
-}(_index.Component), _class2.$$events = [], _class2.$$componentPath = "pages/home/index", _temp2)) || _class);
+}(_index.Component), _class2.$$events = ["gotoDetail"], _class2.$$componentPath = "pages/home/index", _temp2)) || _class);
 exports.default = Home;
 
 Component(require('../../npm/@tarojs/taro-weapp/index.js').default.createComponent(Home, true));

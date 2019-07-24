@@ -1,6 +1,6 @@
 <block wx:if="{{$taroCompReady}}">
-    <swiper class="{{!home ? 'swiper-container' : 'swiper'}}" circular="{{true}}" indicator-dots="{{true}}" indicator-color="#999" indicator-active-color="#bf708f" autoplay="{{true}}">
-        <swiper-item wx:key="index" wx:for="{{banner}}" wx:for-item="item" wx:for-index="index">
+    <swiper class="{{!home ? 'swiper-container' : 'swiper'}}" circular="{{true}}" indicator-dots="{{true}}" indicator-color="#999" indicator-active-color="#bf708f" autoplay="{{true}}" display-multiple-items="{{true}}">
+        <swiper-item wx:key="index" wx:for="{{banneret}}" wx:for-item="item" wx:for-index="index">
             <image bindtap="gotoDetail" mode="widthFix" src="{{item.image_src + '!w750'}}" data-e-tap-so="this" data-e-tap-a-a="{{item}}"></image>
         </swiper-item>
     </swiper>

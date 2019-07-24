@@ -2,4 +2,68 @@
 
 .homePage {
   @include wh(100%, 100%);
+  background: #f2f2f2;
+
+  .recommend {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin: 30px 0;
+    font-size: 36px;
+  }
+  .goddess{
+    height:800px
+  }
 }
+.centBox{
+  // top:330px;
+  // position:fixed;
+  // width:90%;
+  // height: 180px;
+  margin:3vw;
+  padding: 2vw;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0px 0px 10px #ddd;
+  display: flex;
+  justify-content:center;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  .centList{
+    // width:100px;
+    // height: 100px;
+    
+    width: 28%;
+    padding: 18px;
+    // box-shadow: 0px 0px 10px #ddd;
+    image {
+      width: 100%;
+    } 
+  }
+}
+.centPai{
+  width: 100%;
+  margin: 20px 0 10px;
+  // display: flex;
+  // justify-content:flex-start;
+  // flex-direction: row;
+  // align-items: center;
+  overflow-y: hidden;
+  overflow-x: auto;
+  white-space: nowrap;
+  min-height: 100px;
+  .centList{
+    // width:100px;
+    // height: 100px;
+    display: inline-block;
+    width: 43%;
+    padding-left: 26px;
+    // box-shadow: 0px 0px 10px #ddd;
+    image {
+      width: 100%;
+    } 
+  }
+}
+
+

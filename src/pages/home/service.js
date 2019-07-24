@@ -8,6 +8,13 @@ export const homepage = data =>
     data,
   });
 
+export const product = data =>
+  Request({
+    url: '/product/filter',
+    method: 'GET',
+    data,
+  });
+
 
 
 export const demo = data => Request({

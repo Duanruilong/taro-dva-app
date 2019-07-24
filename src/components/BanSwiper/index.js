@@ -30,15 +30,15 @@ export default class BanSwiper extends Component {
  *
  */
 gotoDetail=(item)=>{
-	console.log('item',item);
-	
-	Taro.navigateTo({
-		url: `/pages/about/index?value=${item.value1}`,
-	});
-}
+    console.log('item',item);
+    
+    Taro.navigateTo({
+      url: `/pages/webview/index?value=${item.params}`,
+    });
+  }
 
 render() {
-		const { banner, home } = this.props;
+		const { banner, home, banneret } = this.props;
 		return (
 			<Swiper
 				className={!home ? 'swiper-container' : 'swiper'}
@@ -47,8 +47,9 @@ render() {
 				indicatorColor="#999"
 				indicatorActiveColor="#bf708f"
 				autoplay
+				displayMultipleItems
 			>
-				{banner.map((item, index) => (
+				{banneret.map((item, index) => (
 					<SwiperItem key={index} >
 						<Image onClick={this.gotoDetail.bind(this, item)} mode="widthFix" src={`${item.image_src}!w750`} />
 					</SwiperItem>

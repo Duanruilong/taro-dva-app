@@ -1,6 +1,6 @@
 {
   "miniprogramRoot": "./dist",
-  "projectname": "edu-taro-app",
+  "projectname": "taro-dva-app",
   "description": "我的taro项目，微信小程序",
   "appid": "wx1e90f0a22154eb50",
   "setting": {

@@ -49,11 +49,11 @@ var BanSwiper = (_temp2 = _class = function (_BaseComponent) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = BanSwiper.__proto__ || Object.getPrototypeOf(BanSwiper)).call.apply(_ref, [this].concat(args))), _this), _this.$usedState = ["home", "banner"], _this.gotoDetail = function (item) {
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = BanSwiper.__proto__ || Object.getPrototypeOf(BanSwiper)).call.apply(_ref, [this].concat(args))), _this), _this.$usedState = ["home", "banneret", "banner"], _this.gotoDetail = function (item) {
       console.log('item', item);
 
       _index2.default.navigateTo({
-        url: "/pages/about/index?value=" + item.value1
+        url: "/pages/webview/index?value=" + item.params
       });
     }, _this.customComponents = [], _temp), _possibleConstructorReturn(_this, _ret);
   }
@@ -76,11 +76,12 @@ var BanSwiper = (_temp2 = _class = function (_BaseComponent) {
 
       var _props = this.__props,
           banner = _props.banner,
-          home = _props.home;
+          home = _props.home,
+          banneret = _props.banneret;
 
       Object.assign(this.__state, {
         home: home,
-        banner: banner
+        banneret: banneret
       });
       return this.__state;
     }

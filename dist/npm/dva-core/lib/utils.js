@@ -1,6 +1,6 @@
 "use strict";
 
-var _interopRequireDefault = require("../npm/@babel/runtime/helpers/interopRequireDefault.js");
+var _interopRequireDefault = require("../../@babel/runtime/helpers/interopRequireDefault.js");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -13,7 +13,7 @@ Object.defineProperty(exports, "isPlainObject", {
 });
 exports.findIndex = exports.noop = exports.returnSelf = exports.isFunction = exports.isArray = undefined;
 
-var _isPlainObject2 = _interopRequireDefault(require("../npm/is-plain-object/index.js"));
+var _isPlainObject2 = _interopRequireDefault(require("../../is-plain-object/index.js"));
 
 var isArray = Array.isArray.bind(Array);
 exports.isArray = isArray;

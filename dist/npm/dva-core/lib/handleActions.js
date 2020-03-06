@@ -1,17 +1,17 @@
 "use strict";
 
-var _interopRequireDefault = require("../npm/@babel/runtime/helpers/interopRequireDefault.js");
+var _interopRequireDefault = require("../../@babel/runtime/helpers/interopRequireDefault.js");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = undefined;
 
-var _toConsumableArray2 = _interopRequireDefault(require("../npm/@babel/runtime/helpers/toConsumableArray.js"));
+var _toConsumableArray2 = _interopRequireDefault(require("../../@babel/runtime/helpers/toConsumableArray.js"));
 
-var _keys = _interopRequireDefault(require("../npm/@babel/runtime/core-js/object/keys.js"));
+var _keys = _interopRequireDefault(require("../../@babel/runtime/core-js/object/keys.js"));
 
-var _invariant = _interopRequireDefault(require("../npm/invariant/invariant.js"));
+var _invariant = _interopRequireDefault(require("../../invariant/invariant.js"));
 
 function identify(value) {
   return value;

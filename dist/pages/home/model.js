@@ -99,7 +99,7 @@ exports.default = {
               console.log(page, '-===--获取product数据==》', data);
 
               if (!(status === 'ok')) {
-                _context2.next = 14;
+                _context2.next = 15;
                 break;
               }
 
@@ -112,6 +112,9 @@ exports.default = {
               });
 
             case 14:
+              return _context2.abrupt('return', productsList);
+
+            case 15:
             case 'end':
               return _context2.stop();
           }

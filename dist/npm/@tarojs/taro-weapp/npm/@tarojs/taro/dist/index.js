@@ -72,6 +72,141 @@ function _objectSpread(target) {
   return target;
 }
 
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function");
+  }
+
+  subClass.prototype = Object.create(superClass && superClass.prototype, {
+    constructor: {
+      value: subClass,
+      writable: true,
+      configurable: true
+    }
+  });
+  if (superClass) _setPrototypeOf(subClass, superClass);
+}
+
+function _getPrototypeOf(o) {
+  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
+    return o.__proto__ || Object.getPrototypeOf(o);
+  };
+  return _getPrototypeOf(o);
+}
+
+function _setPrototypeOf(o, p) {
+  _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+    o.__proto__ = p;
+    return o;
+  };
+
+  return _setPrototypeOf(o, p);
+}
+
+function isNativeReflectConstruct() {
+  if (typeof Reflect === "undefined" || !Reflect.construct) return false;
+  if (Reflect.construct.sham) return false;
+  if (typeof Proxy === "function") return true;
+
+  try {
+    Date.prototype.toString.call(Reflect.construct(Date, [], function () {}));
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+function _construct(Parent, args, Class) {
+  if (isNativeReflectConstruct()) {
+    _construct = Reflect.construct;
+  } else {
+    _construct = function _construct(Parent, args, Class) {
+      var a = [null];
+      a.push.apply(a, args);
+      var Constructor = Function.bind.apply(Parent, a);
+      var instance = new Constructor();
+      if (Class) _setPrototypeOf(instance, Class.prototype);
+      return instance;
+    };
+  }
+
+  return _construct.apply(null, arguments);
+}
+
+function _isNativeFunction(fn) {
+  return Function.toString.call(fn).indexOf("[native code]") !== -1;
+}
+
+function _wrapNativeSuper(Class) {
+  var _cache = typeof Map === "function" ? new Map() : undefined;
+
+  _wrapNativeSuper = function _wrapNativeSuper(Class) {
+    if (Class === null || !_isNativeFunction(Class)) return Class;
+
+    if (typeof Class !== "function") {
+      throw new TypeError("Super expression must either be null or a function");
+    }
+
+    if (typeof _cache !== "undefined") {
+      if (_cache.has(Class)) return _cache.get(Class);
+
+      _cache.set(Class, Wrapper);
+    }
+
+    function Wrapper() {
+      return _construct(Class, arguments, _getPrototypeOf(this).constructor);
+    }
+
+    Wrapper.prototype = Object.create(Class.prototype, {
+      constructor: {
+        value: Wrapper,
+        enumerable: false,
+        writable: true,
+        configurable: true
+      }
+    });
+    return _setPrototypeOf(Wrapper, Class);
+  };
+
+  return _wrapNativeSuper(Class);
+}
+
+function _assertThisInitialized(self) {
+  if (self === undefined) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+
+  return self;
+}
+
+function _possibleConstructorReturn(self, call) {
+  if (call && (typeof call === "object" || typeof call === "function")) {
+    return call;
+  }
+
+  return _assertThisInitialized(self);
+}
+
+function _toConsumableArray(arr) {
+  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread();
+}
+
+function _arrayWithoutHoles(arr) {
+  if (Array.isArray(arr)) {
+    for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];
+
+    return arr2;
+  }
+}
+
+function _iterableToArray(iter) {
+  if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter);
+}
+
+function _nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance");
+}
+
 if (typeof Object.assign !== 'function') {
   // Must be writable: true, enumerable: false, configurable: true
   Object.assign = function (target) {
@@ -1303,35 +1438,58 @@ var ENV_TYPE = {
   RN: 'RN',
   SWAN: 'SWAN',
   ALIPAY: 'ALIPAY',
+  QUICKAPP: 'QUICKAPP',
   TT: 'TT',
-  QQ: 'QQ'
+  QQ: 'QQ',
+  JD: 'JD'
 };
+var _env = null; // 一个taro项目肯定运行同样的环境
+
 function getEnv() {
+  if (_env) return _env;
+
+  if (typeof jd !== 'undefined' && jd.getSystemInfo) {
+    _env = ENV_TYPE.JD;
+    return ENV_TYPE.JD;
+  }
+
   if (typeof qq !== 'undefined' && qq.getSystemInfo) {
+    _env = ENV_TYPE.QQ;
     return ENV_TYPE.QQ;
   }
 
   if (typeof tt !== 'undefined' && tt.getSystemInfo) {
+    _env = ENV_TYPE.TT;
     return ENV_TYPE.TT;
   }
 
   if (typeof wx !== 'undefined' && wx.getSystemInfo) {
+    _env = ENV_TYPE.WEAPP;
     return ENV_TYPE.WEAPP;
   }
 
+  if (typeof qa !== 'undefined' && qa.getSystemInfo) {
+    _env = ENV_TYPE.QUICKAPP;
+    return ENV_TYPE.QUICKAPP;
+  }
+
   if (typeof swan !== 'undefined' && swan.getSystemInfo) {
+    _env = ENV_TYPE.SWAN;
     return ENV_TYPE.SWAN;
   }
 
   if (typeof my !== 'undefined' && my.getSystemInfo) {
+    _env = ENV_TYPE.ALIPAY;
     return ENV_TYPE.ALIPAY;
   }
 
   if (typeof global !== 'undefined' && global.__fbGenNativeModule) {
+    _env = ENV_TYPE.RN;
     return ENV_TYPE.RN;
   }
 
   if (typeof window !== 'undefined') {
+    _env = ENV_TYPE.WEB;
     return ENV_TYPE.WEB;
   }
 
@@ -1522,6 +1680,69 @@ function detachAllRef(component) {
     component.refs = {};
   }
 }
+var RefsArray =
+/*#__PURE__*/
+function (_Array) {
+  _inherits(RefsArray, _Array);
+
+  /**
+   * @param {Array} initList
+   */
+  function RefsArray() {
+    var _getPrototypeOf2;
+
+    var _this;
+
+    var initList = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+
+    _classCallCheck(this, RefsArray);
+
+    _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(RefsArray)).call.apply(_getPrototypeOf2, [this].concat(_toConsumableArray(initList))));
+    _this.inited = false;
+    return _this;
+  }
+
+  _createClass(RefsArray, [{
+    key: "pushRefs",
+    value: function pushRefs($$refs) {
+      var _this2 = this;
+
+      if (this.inited) return;
+      $$refs.forEach(function (ref) {
+        return _this2.pushRef(ref);
+      });
+      this.inited = true;
+    }
+  }, {
+    key: "pushRef",
+    value: function pushRef(ref) {
+      var isExist = this.find(function (item) {
+        return item.id === ref.id;
+      });
+      !isExist && this.push(ref);
+    }
+  }]);
+
+  return RefsArray;
+}(_wrapNativeSuper(Array));
+function handleLoopRef(getElementById) {
+  return function (component, id, type, handler) {
+    if (!component) return null;
+    var dom = getElementById(component, id, type);
+
+    var handlerType = _typeof(handler);
+
+    if (handlerType !== 'function' && handlerType !== 'object') {
+      return console.warn("\u5FAA\u73AF Ref \u53EA\u652F\u6301\u51FD\u6570\u6216 createRef()\uFF0C\u5F53\u524D\u7C7B\u578B\u4E3A\uFF1A".concat(handlerType));
+    }
+
+    if (handlerType === 'object') {
+      handler.current = dom;
+    } else if (handlerType === 'function') {
+      handler.call(component.$component, dom);
+    }
+  };
+}
 
 var Chain =
 /*#__PURE__*/
@@ -1585,6 +1806,11 @@ function () {
   _createClass(Link, [{
     key: "request",
     value: function request(requestParams) {
+      var _this = this;
+
+      this.chain.interceptors = this.chain.interceptors.filter(function (interceptor) {
+        return interceptor !== _this.taroInterceptor;
+      });
       this.chain.interceptors.push(this.taroInterceptor);
       return this.chain.proceed(_objectSpread({}, requestParams));
     }
@@ -1605,12 +1831,14 @@ function () {
 
 function timeoutInterceptor(chain) {
   var requestParams = chain.requestParams;
-  return new Promise(function (resolve, reject) {
+  var p;
+  var res = new Promise(function (resolve, reject) {
     var timeout = setTimeout(function () {
       timeout = null;
       reject(new Error('网络链接超时,请稍后再试！'));
     }, requestParams && requestParams.timeout || 60000);
-    chain.proceed(requestParams).then(function (res) {
+    p = chain.proceed(requestParams);
+    p.then(function (res) {
       if (!timeout) return;
       clearTimeout(timeout);
       resolve(res);
@@ -1619,6 +1847,8 @@ function timeoutInterceptor(chain) {
       reject(err);
     });
   });
+  if (typeof p.abort === 'function') res.abort = p.abort;
+  return res;
 }
 function logInterceptor(chain) {
   var requestParams = chain.requestParams;
@@ -1626,10 +1856,13 @@ function logInterceptor(chain) {
       data = requestParams.data,
       url = requestParams.url;
   console.log("http ".concat(method || 'GET', " --> ").concat(url, " data: "), data);
-  return chain.proceed(requestParams).then(function (res) {
+  var p = chain.proceed(requestParams);
+  var res = p.then(function (res) {
     console.log("http <-- ".concat(url, " result:"), res);
     return res;
   });
+  if (typeof p.abort === 'function') res.abort = p.abort;
+  return res;
 }
 
 var interceptors = /*#__PURE__*/Object.freeze({
@@ -1658,6 +1891,9 @@ var onAndSyncApis = {
   onHCEMessage: true,
   onGetWifiList: true,
   onWifiConnected: true,
+  offWifiConnected: true,
+  offGetWifiList: true,
+  onDeviceMotionChange: true,
   setStorageSync: true,
   getStorageSync: true,
   getStorageInfoSync: true,
@@ -1680,7 +1916,11 @@ var onAndSyncApis = {
   offPageNotFound: true,
   offError: true,
   offAppShow: true,
-  offAppHide: true
+  offAppHide: true,
+  onAudioInterruptionEnd: true,
+  onAudioInterruptionBegin: true,
+  onLocationChange: true,
+  offLocationChange: true
 };
 var noPromiseApis = {
   // 媒体
@@ -1719,6 +1959,7 @@ var noPromiseApis = {
   hideKeyboard: true,
   stopPullDownRefresh: true,
   createIntersectionObserver: true,
+  nextTick: true,
   // 菜单
   getMenuButtonBoundingClientRect: true,
   onWindowResize: true,
@@ -1731,7 +1972,9 @@ var noPromiseApis = {
   createWorker: true,
   // 广告
   createRewardedVideoAd: true,
-  createInterstitialAd: true
+  createInterstitialAd: true,
+  // 调试
+  getRealtimeLogManager: true
 };
 var otherApis = {
   // 网络
@@ -1777,6 +2020,9 @@ var otherApis = {
   switchTab: true,
   reLaunch: true,
   // 位置
+  startLocationUpdate: true,
+  startLocationUpdateBackground: true,
+  stopLocationUpdate: true,
   getLocation: true,
   chooseLocation: true,
   openLocation: true,
@@ -1820,6 +2066,8 @@ var otherApis = {
   getWifiList: true,
   setWifiList: true,
   getConnectedWifi: true,
+  startDeviceMotionListening: true,
+  stopDeviceMotionListening: true,
   // 界面
   pageScrollTo: true,
   showToast: true,
@@ -1843,6 +2091,8 @@ var otherApis = {
   canvasPutImageData: true,
   setBackgroundColor: true,
   setBackgroundTextStyle: true,
+  getSelectedTextRange: true,
+  hideHomeButton: true,
   // 第三方平台
   getExtConfig: true,
   // 开放接口
@@ -1872,7 +2122,11 @@ var otherApis = {
   checkIsSupportSoterAuthentication: true,
   startSoterAuthentication: true,
   checkIsSoterEnrolledInDevice: true,
+  // 订阅消息
+  requestSubscribeMessage: true,
   setEnableDebug: true,
+  // 支付宝小程序API
+  getOpenUserInfo: true,
   // 百度小程序专有 API
   // 百度小程序 AI 相关
   ocrIdCard: true,
@@ -1945,6 +2199,9 @@ var Current = {
   index: 0
 };
 
+function forceUpdateCallback() {//
+}
+
 function getHooks(index) {
   if (Current.current === null) {
     throw new Error("invalid hooks call: hooks can only be called in a stateless component.");
@@ -1969,13 +2226,80 @@ function useState(initialState) {
   if (!hook.state) {
     hook.component = Current.current;
     hook.state = [initialState, function (action) {
-      hook.state[0] = isFunction$1(action) ? action(hook.state[0]) : action;
+      var nextState = isFunction$1(action) ? action(hook.state[0]) : action;
+      if (hook.state[0] === nextState) return;
+      hook.state[0] = nextState;
       hook.component._disable = false;
-      hook.component.setState({});
+      hook.component.setState({}, forceUpdateCallback);
     }];
   }
 
   return hook.state;
+}
+
+function usePageLifecycle(callback, lifecycle) {
+  var hook = getHooks(Current.index++);
+
+  if (!hook.marked) {
+    hook.marked = true;
+    hook.component = Current.current;
+    hook.callback = callback;
+    var component = hook.component;
+    var originalLifecycle = component[lifecycle];
+
+    hook.component[lifecycle] = function () {
+      var callback = hook.callback;
+      originalLifecycle && originalLifecycle.call.apply(originalLifecycle, [component].concat(Array.prototype.slice.call(arguments)));
+      return callback && callback.call.apply(callback, [component].concat(Array.prototype.slice.call(arguments)));
+    };
+  } else {
+    hook.callback = callback;
+  }
+}
+
+function useDidShow(callback) {
+  usePageLifecycle(callback, 'componentDidShow');
+}
+function useDidHide(callback) {
+  usePageLifecycle(callback, 'componentDidHide');
+}
+function usePullDownRefresh(callback) {
+  usePageLifecycle(callback, 'onPullDownRefresh');
+}
+function useReachBottom(callback) {
+  usePageLifecycle(callback, 'onReachBottom');
+}
+function usePageScroll(callback) {
+  usePageLifecycle(callback, 'onPageScroll');
+}
+function useResize(callback) {
+  usePageLifecycle(callback, 'onResize');
+}
+function useShareAppMessage(callback) {
+  usePageLifecycle(callback, 'onShareAppMessage');
+}
+function useTabItemTap(callback) {
+  usePageLifecycle(callback, 'onTabItemTap');
+}
+function useRouter() {
+  var hook = getHooks(Current.index++);
+
+  if (!hook.router) {
+    hook.component = Current.current;
+    hook.router = hook.component.$router;
+  }
+
+  return hook.router;
+}
+function useScope() {
+  var hook = getHooks(Current.index++);
+
+  if (!hook.scope) {
+    hook.component = Current.current;
+    hook.scope = hook.component.$scope;
+  }
+
+  return hook.scope;
 }
 function useReducer(reducer, initialState, initializer) {
   if (isFunction$1(initialState)) {
@@ -1989,7 +2313,7 @@ function useReducer(reducer, initialState, initializer) {
     hook.state = [isUndefined(initializer) ? initialState : initializer(initialState), function (action) {
       hook.state[0] = reducer(hook.state[0], action);
       hook.component._disable = false;
-      hook.component.setState({});
+      hook.component.setState({}, forceUpdateCallback);
     }];
   }
 
@@ -2117,9 +2441,9 @@ function useImperativeHandle(ref, init, deps) {
 }
 function useContext(_ref) {
   var context = _ref.context;
-  var emiter = context.emiter;
+  var emitter = context.emitter;
 
-  if (emiter === null) {
+  if (emitter === null) {
     return context._defaultValue;
   }
 
@@ -2128,7 +2452,7 @@ function useContext(_ref) {
   if (isUndefined(hook.context)) {
     hook.context = true;
     hook.component = Current.current;
-    emiter.on(function (_) {
+    emitter.on(function (_) {
       if (hook.component) {
         hook.component._disable = false;
         hook.component.setState({});
@@ -2136,20 +2460,22 @@ function useContext(_ref) {
     });
   }
 
-  return emiter.value;
+  return emitter.value;
 }
 
-var Emiter =
+var Emitter =
 /*#__PURE__*/
 function () {
-  function Emiter(value) {
-    _classCallCheck(this, Emiter);
+  function Emitter() {
+    var value = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+    _classCallCheck(this, Emitter);
 
     this.value = value;
     this.handlers = [];
   }
 
-  _createClass(Emiter, [{
+  _createClass(Emitter, [{
     key: "on",
     value: function on(handler) {
       this.handlers.push(handler);
@@ -2177,25 +2503,25 @@ function () {
     }
   }]);
 
-  return Emiter;
+  return Emitter;
 }();
 
 var contextUid = 0;
 function createContext(defaultValue) {
   var contextId = '__context_' + contextUid++ + '__';
   var context = {
-    emiter: null,
+    emitter: null,
     _id: contextId,
     _defaultValue: defaultValue
   };
 
   function Provider(newValue) {
-    var emiter = context.emiter;
+    var emitter = context.emitter;
 
-    if (!emiter) {
-      context.emiter = new Emiter(defaultValue);
+    if (!emitter) {
+      context.emitter = new Emitter(defaultValue);
     } else {
-      emiter.set(newValue);
+      emitter.set(newValue);
     }
   }
 
@@ -2205,9 +2531,53 @@ function createContext(defaultValue) {
   };
 }
 
+/* eslint-disable */
+var objectIs$1 = Object.is || function (x, y) {
+  if (x === y) {
+    return x !== 0 || 1 / x === 1 / y;
+  }
+
+  return x !== x && y !== y;
+};
+
+function shallowEqual(obj1, obj2) {
+  if (_typeof(obj1) !== 'object' && _typeof(obj2) !== 'object') {
+    return obj1 === obj2;
+  }
+
+  if (obj1 === null && obj2 === null) {
+    return true;
+  }
+
+  if (obj1 === null || obj2 === null) {
+    return false;
+  }
+
+  if (objectIs$1(obj1, obj2)) {
+    return true;
+  }
+
+  var obj1Keys = obj1 ? Object.keys(obj1) : [];
+  var obj2Keys = obj2 ? Object.keys(obj2) : [];
+
+  if (obj1Keys.length !== obj2Keys.length) {
+    return false;
+  }
+
+  for (var i = 0; i < obj1Keys.length; i++) {
+    var obj1KeyItem = obj1Keys[i];
+
+    if (!obj2.hasOwnProperty(obj1KeyItem) || !objectIs$1(obj1[obj1KeyItem], obj2[obj1KeyItem])) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
 function memo(component, propsAreEqual) {
-  component.prototype.shouldComponentUpdate = function (nextProps, nextState) {
-    return !objectIs(this.state, nextState) || (isFunction$1(propsAreEqual) ? !propsAreEqual(this.props, nextProps) : !objectIs(this.props, nextProps));
+  component.prototype.shouldComponentUpdate = function (nextProps) {
+    return isFunction$1(propsAreEqual) ? !propsAreEqual(this.props, nextProps) : !shallowEqual(this.props, nextProps);
   };
 
   return component;
@@ -2229,6 +2599,7 @@ var index = {
   internal_safe_set: set$1,
   internal_inline_style: inlineStyle,
   internal_get_original: getOriginal,
+  internal_force_update: forceUpdateCallback,
   noPromiseApis: noPromiseApis,
   onAndSyncApis: onAndSyncApis,
   otherApis: otherApis,
@@ -2238,11 +2609,23 @@ var index = {
   detachAllRef: detachAllRef,
   Link: Link,
   interceptors: interceptors,
+  RefsArray: RefsArray,
+  handleLoopRef: handleLoopRef,
   Current: Current,
   useEffect: useEffect,
   useLayoutEffect: useLayoutEffect,
   useReducer: useReducer,
   useState: useState,
+  useDidShow: useDidShow,
+  useDidHide: useDidHide,
+  usePullDownRefresh: usePullDownRefresh,
+  useReachBottom: useReachBottom,
+  usePageScroll: usePageScroll,
+  useResize: useResize,
+  useShareAppMessage: useShareAppMessage,
+  useTabItemTap: useTabItemTap,
+  useRouter: useRouter,
+  useScope: useScope,
   useRef: useRef,
   useCallback: useCallback,
   useMemo: useMemo,
@@ -2262,6 +2645,7 @@ exports.internal_safe_get = get;
 exports.internal_safe_set = set$1;
 exports.internal_inline_style = inlineStyle;
 exports.internal_get_original = getOriginal;
+exports.internal_force_update = forceUpdateCallback;
 exports.noPromiseApis = noPromiseApis;
 exports.onAndSyncApis = onAndSyncApis;
 exports.otherApis = otherApis;
@@ -2271,11 +2655,23 @@ exports.commitAttachRef = commitAttachRef;
 exports.detachAllRef = detachAllRef;
 exports.Link = Link;
 exports.interceptors = interceptors;
+exports.RefsArray = RefsArray;
+exports.handleLoopRef = handleLoopRef;
 exports.Current = Current;
 exports.useEffect = useEffect;
 exports.useLayoutEffect = useLayoutEffect;
 exports.useReducer = useReducer;
 exports.useState = useState;
+exports.useDidShow = useDidShow;
+exports.useDidHide = useDidHide;
+exports.usePullDownRefresh = usePullDownRefresh;
+exports.useReachBottom = useReachBottom;
+exports.usePageScroll = usePageScroll;
+exports.useResize = useResize;
+exports.useShareAppMessage = useShareAppMessage;
+exports.useTabItemTap = useTabItemTap;
+exports.useRouter = useRouter;
+exports.useScope = useScope;
 exports.useRef = useRef;
 exports.useCallback = useCallback;
 exports.useMemo = useMemo;

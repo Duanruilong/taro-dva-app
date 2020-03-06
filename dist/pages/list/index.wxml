@@ -1,5 +1,5 @@
 <block wx:if="{{$taroCompReady}}">
     <view class="list-page">
-        <good-list compid="{{$compid__66}}"></good-list>
+        <good-list compid="{{$compid__1}}"></good-list>
     </view>
 </block>

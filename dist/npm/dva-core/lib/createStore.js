@@ -1,23 +1,23 @@
 "use strict";
 
-var _interopRequireDefault = require("../npm/@babel/runtime/helpers/interopRequireDefault.js");
+var _interopRequireDefault = require("../../@babel/runtime/helpers/interopRequireDefault.js");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = _default;
 
-var _toConsumableArray2 = _interopRequireDefault(require("../npm/@babel/runtime/helpers/toConsumableArray.js"));
+var _toConsumableArray2 = _interopRequireDefault(require("../../@babel/runtime/helpers/toConsumableArray.js"));
 
-var _typeof2 = _interopRequireDefault(require("../npm/@babel/runtime/helpers/typeof.js"));
+var _typeof2 = _interopRequireDefault(require("../../@babel/runtime/helpers/typeof.js"));
 
-var _redux = require("../npm/redux/lib/index.js");
+var _redux = require("../../redux/lib/index.js");
 
-var _flatten = _interopRequireDefault(require("../npm/flatten/index.js"));
+var _flatten = _interopRequireDefault(require("../../flatten/index.js"));
 
-var _invariant = _interopRequireDefault(require("../npm/invariant/invariant.js"));
+var _invariant = _interopRequireDefault(require("../../invariant/invariant.js"));
 
-var _window = _interopRequireDefault(require("../npm/global/window.js"));
+var _window = _interopRequireDefault(require("../../global/window.js"));
 
 var _utils = require("./utils.js");
 

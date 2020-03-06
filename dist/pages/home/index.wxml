@@ -1,16 +1,20 @@
 <block wx:if="{{$taroCompReady}}">
     <view class="homePage">
-        <ban-swiper compid="{{$compid__84}}"></ban-swiper>
-        <view class="centBox"><text class="recommend">为你推荐</text>
-        </view>
-        <view class="centPai">
-            <view bindtap="gotoDetail" class="centList" wx:key="index" wx:for="{{brands}}" wx:for-item="item" wx:for-index="index" data-e-tap-so="this" data-e-tap-a-a="{{item}}">
-                <image mode="widthFix" src="{{item.image_src}}"></image>
+        <view class="tab-content">
+            <view class="downDragBox" style="{{anonymousState__temp}}">
+                <at-activity-indicator compid="{{$compid__128}}"></at-activity-indicator>
             </view>
-        </view><text class="recommend">女神名人堂</text>
-        <view class="goddess">
-            <ban-swiper compid="{{$compid__85}}"></ban-swiper>
-        </view><text class="recommend">为你推荐</text>
-        <good-list compid="{{$compid__86}}"></good-list>
+            <scroll-view style="{{anonymousState__temp2}}" scroll-y="{{scrollY}}" class="tab-container" upper-threshold="{{Threshold}}" lower-threshold="{{Threshold}}" bindtouchstart="touchStart" catchtouchmove="touchRecMove" bindtouchend="touchEnd" bindscrolltoupper="anonymousFunc0" bindscrolltolower="onReachBottom" scroll-with-animation="{{true}}">
+                <view class="tab-content">
+                    <view bindtap="gotoDetail" class="centList" wx:key="index" wx:for="{{productsList}}" wx:for-item="item" wx:for-index="index" data-e-tap-so="this" data-e-tap-a-a="{{item}}">
+                        <image mode="widthFix" src="{{item.cover_image}}" class="down-img"></image><text>{{item.name}}</text>
+                    </view>
+                </view>
+                <view class="upDragBox">
+                    <at-load-more compid="{{$compid__129}}"></at-load-more>
+                </view>
+                <at-toast compid="{{$compid__130}}"></at-toast>
+            </scroll-view>
+        </view>
     </view>
 </block>

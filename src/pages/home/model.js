@@ -38,6 +38,7 @@ export default {
             productsList:page > 1 ? [...productsList,...data.rows] : data.rows
           },
         });
+        return productsList
       }
     },
   },

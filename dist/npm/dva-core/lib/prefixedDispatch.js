@@ -1,15 +1,15 @@
 "use strict";
 
-var _interopRequireDefault = require("../npm/@babel/runtime/helpers/interopRequireDefault.js");
+var _interopRequireDefault = require("../../@babel/runtime/helpers/interopRequireDefault.js");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = prefixedDispatch;
 
-var _objectSpread2 = _interopRequireDefault(require("../npm/@babel/runtime/helpers/objectSpread.js"));
+var _objectSpread2 = _interopRequireDefault(require("../../@babel/runtime/helpers/objectSpread.js"));
 
-var _invariant = _interopRequireDefault(require("../npm/invariant/invariant.js"));
+var _invariant = _interopRequireDefault(require("../../invariant/invariant.js"));
 
 var _warning = _interopRequireDefault(require("../npm/warning/warning.js"));
 

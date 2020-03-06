@@ -31,9 +31,12 @@
   align-items: center;
   flex-wrap: wrap;
   .centList{
-    // width:100px;
-    // height: 100px;
-    
+    background: #fff;
+    display: flex;
+    justify-content:center;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
     width: 28%;
     padding: 18px;
     // box-shadow: 0px 0px 10px #ddd;
@@ -66,4 +69,61 @@
   }
 }
 
+@import "~taro-ui/dist/style/components/load-more.scss";
+@import "~taro-ui/dist/style/components/activity-indicator.scss";
+@import "~taro-ui/dist/style/components/button.scss";
+@import "~taro-ui/dist/style/components/toast.scss";
+@import "~taro-ui/dist/style/components/icon.scss";
 
+.centList{
+  background: #fff;
+  display: flex;
+  justify-content:center;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.down-img {
+  width: 120px;
+  height: 120px;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 20px;
+}
+.downDragBox {
+  width: 100%;
+  top: 0px;
+  display: flex;
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  position: absolute;
+}
+
+.tab-content {
+  max-width: 750px;
+  background: #f6f6f6;
+  font-size: 28px;
+  // margin-top: 15px;
+}
+
+.tab-container {
+  height: 100vh;
+  // overflow: scroll;
+  position: absolute;
+}
+
+.show {
+  display: block;
+}
+
+.hide {
+  display: none;
+}
+
+.upDragBox {
+  height: 30vh;
+}

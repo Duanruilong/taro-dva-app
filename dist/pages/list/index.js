@@ -45,7 +45,7 @@ var List = (_dec = (0, _index3.connect)(function (_ref) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref2 = List.__proto__ || Object.getPrototypeOf(List)).call.apply(_ref2, [this].concat(args))), _this), _this.$usedState = ["$compid__66", "dispatch", "page", "banneret", "banner", "brands", "productsList", "effects"], _this.config = {
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref2 = List.__proto__ || Object.getPrototypeOf(List)).call.apply(_ref2, [this].concat(args))), _this), _this.$usedState = ["$compid__1", "dispatch", "page", "banneret", "banner", "brands", "productsList", "effects"], _this.config = {
       navigationBarTitleText: '列表'
     }, _this.componentDidMount = function () {
       _this.props.dispatch({
@@ -97,7 +97,7 @@ var List = (_dec = (0, _index3.connect)(function (_ref) {
       var __isRunloopRef = arguments[2];
       var __prefix = this.$prefix;
       ;
-      var $compid__66 = (0, _index.genCompid)(__prefix + "$compid__66");
+      var $compid__1 = (0, _index.genCompid)(__prefix + "$compid__1");
 
       var _props = this.__props,
           banneret = _props.banneret,
@@ -111,9 +111,9 @@ var List = (_dec = (0, _index3.connect)(function (_ref) {
       _index.propsManager.set({
         "list": productsList,
         "loading": effects && effects['home/product']
-      }, $compid__66);
+      }, $compid__1);
       Object.assign(this.__state, {
-        $compid__66: $compid__66
+        $compid__1: $compid__1
       });
       return this.__state;
     }

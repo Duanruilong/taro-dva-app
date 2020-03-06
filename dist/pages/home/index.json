@@ -1,7 +1,8 @@
 {
   "usingComponents": {
-    "ban-swiper": "../../components/BanSwiper/index",
-    "good-list": "../../components/GoodList/index"
+    "at-activity-indicator": "../../npm/taro-ui/dist/weapp/components/activity-indicator/index",
+    "at-load-more": "../../npm/taro-ui/dist/weapp/components/load-more/index",
+    "at-toast": "../../npm/taro-ui/dist/weapp/components/toast/index"
   },
   "navigationBarTitleText": "首页"
 }

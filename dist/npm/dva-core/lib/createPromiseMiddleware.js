@@ -1,17 +1,17 @@
 "use strict";
 
-var _interopRequireDefault = require("../npm/@babel/runtime/helpers/interopRequireDefault.js");
+var _interopRequireDefault = require("../../@babel/runtime/helpers/interopRequireDefault.js");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = createPromiseMiddleware;
 
-var _slicedToArray2 = _interopRequireDefault(require("../npm/@babel/runtime/helpers/slicedToArray.js"));
+var _slicedToArray2 = _interopRequireDefault(require("../../@babel/runtime/helpers/slicedToArray.js"));
 
-var _objectSpread2 = _interopRequireDefault(require("../npm/@babel/runtime/helpers/objectSpread.js"));
+var _objectSpread2 = _interopRequireDefault(require("../../@babel/runtime/helpers/objectSpread.js"));
 
-var _promise = _interopRequireDefault(require("../npm/@babel/runtime/core-js/promise.js"));
+var _promise = _interopRequireDefault(require("../../@babel/runtime/core-js/promise.js"));
 
 var _constants = require("./constants.js");
 

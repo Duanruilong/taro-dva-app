@@ -40,7 +40,10 @@ exports.default = function () {
 
     if (statusCode >= 200 && statusCode < 300) {
       if (!_index3.noConsole) {
-        console.log(new Date().toLocaleString() + "\u3010 M=" + options.url + " \u3011\u3010\u63A5\u53E3\u54CD\u5E94\uFF1A\u3011", res.data);
+        // console.log(
+        //   `${new Date().toLocaleString()}【 M=${options.url} 】【接口响应：】`,
+        //   res.data
+        // );
       }
       if (data.status !== 'ok') {
         _index2.default.showToast({

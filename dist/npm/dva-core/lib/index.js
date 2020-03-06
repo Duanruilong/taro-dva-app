@@ -1,25 +1,25 @@
 "use strict";
 
-var _interopRequireWildcard = require("../npm/@babel/runtime/helpers/interopRequireWildcard.js");
+var _interopRequireWildcard = require("../../@babel/runtime/helpers/interopRequireWildcard.js");
 
-var _interopRequireDefault = require("../npm/@babel/runtime/helpers/interopRequireDefault.js");
+var _interopRequireDefault = require("../../@babel/runtime/helpers/interopRequireDefault.js");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.create = create;
 
-var _getIterator2 = _interopRequireDefault(require("../npm/@babel/runtime/core-js/get-iterator.js"));
+var _getIterator2 = _interopRequireDefault(require("../../@babel/runtime/core-js/get-iterator.js"));
 
-var _keys = _interopRequireDefault(require("../npm/@babel/runtime/core-js/object/keys.js"));
+var _keys = _interopRequireDefault(require("../../@babel/runtime/core-js/object/keys.js"));
 
-var _objectSpread2 = _interopRequireDefault(require("../npm/@babel/runtime/helpers/objectSpread.js"));
+var _objectSpread2 = _interopRequireDefault(require("../../@babel/runtime/helpers/objectSpread.js"));
 
-var _redux = require("../npm/redux/lib/index.js");
+var _redux = require("../../redux/lib/index.js");
 
-var _middleware = _interopRequireDefault(require("../npm/redux-saga/lib/internal/middleware.js"));
+var _middleware = _interopRequireDefault(require("../../redux-saga/lib/internal/middleware.js"));
 
-var _invariant = _interopRequireDefault(require("../npm/invariant/invariant.js"));
+var _invariant = _interopRequireDefault(require("../../invariant/invariant.js"));
 
 var _checkModel = _interopRequireDefault(require("./checkModel.js"));
 

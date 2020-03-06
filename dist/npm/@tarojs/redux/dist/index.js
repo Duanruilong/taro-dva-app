@@ -144,6 +144,10 @@ function _arrayWithHoles(arr) {
 }
 
 function _iterableToArrayLimit(arr, i) {
+  if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) {
+    return;
+  }
+
   var _arr = [];
   var _n = true;
   var _d = false;
@@ -273,14 +277,22 @@ function connect(mapStateToProps, mapDispatchToProps) {
         }
 
         _createClass(Connect, [{
-          key: "componentWillMount",
-          value: function componentWillMount() {
+          key: "_constructor",
+          value: function _constructor() {
+            if (!this.$scope) {
+              if (_get(_getPrototypeOf(Connect.prototype), "_constructor", this)) {
+                _get(_getPrototypeOf(Connect.prototype), "_constructor", this).call(this, this.props);
+              }
+
+              return;
+            }
+
             var store = getStore();
             Object.assign(this.props, mergeObjects(mapStateToProps(store.getState(), this.props), initMapDispatch));
             unSubscribe = store.subscribe(stateListener.bind(this));
 
-            if (_get(_getPrototypeOf(Connect.prototype), "componentWillMount", this)) {
-              _get(_getPrototypeOf(Connect.prototype), "componentWillMount", this).call(this);
+            if (_get(_getPrototypeOf(Connect.prototype), "_constructor", this)) {
+              _get(_getPrototypeOf(Connect.prototype), "_constructor", this).call(this, this.props);
             }
           }
         }, {

@@ -44,7 +44,7 @@ var Home = (_dec = (0, _index3.connect)(function (_ref) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref2 = Home.__proto__ || Object.getPrototypeOf(Home)).call.apply(_ref2, [this].concat(args))), _this), _this.$usedState = ["$compid__84", "$compid__85", "$compid__86", "brands", "dispatch", "page", "banneret", "banner", "productsList", "effects"], _this.config = {
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref2 = Home.__proto__ || Object.getPrototypeOf(Home)).call.apply(_ref2, [this].concat(args))), _this), _this.$usedState = ["anonymousState__temp", "anonymousState__temp2", "anonymousState__temp3", "anonymousState__temp4", "$compid__128", "$compid__129", "$compid__130", "scrollY", "Threshold", "productsList", "dragStyle", "creState", "downPullText", "status", "isLoading", "dispatch", "page", "banneret", "banner", "brands", "effects"], _this.config = {
       navigationBarTitleText: '首页'
     }, _this.componentDidMount = function () {
       // 获取数据
@@ -61,24 +61,165 @@ var Home = (_dec = (0, _index3.connect)(function (_ref) {
           filter: 'sort:recomm|c:330602'
         }
       });
+    }, _this.getProduct = function () {
+
+      console.log('getProduct----->>>>>>>>>>>');
+
+      _this.setState({
+        status: 'loading'
+        // isLoading:true
+      });
+      _this.props.dispatch({
+        type: 'home/product',
+        payload: {
+          page: 1,
+          mode: 1,
+          type: 1,
+          filter: 'sort:recomm|c:330602'
+        }
+      }).then(function (res) {
+        _this.setState({
+          status: 'more',
+          isLoading: false
+        });
+      });
     }, _this.gotoDetail = function (item) {
       console.log('item', item);
 
-      _index2.default.navigateTo({
-        url: "/pages/webview/index?value=" + item.value1.split('?')[0] + "&" + item.value1.split('?')[1]
+      // Taro.navigateTo({
+      //   url: `/pages/webview/index?value=${item.value1.split('?')[0]}&${item.value1.split('?')[1]}`,
+      // });
+    }, _this.touchStart = function (e) {
+      var that = _this;
+      that.setState({
+        creState: e.touches[0]
       });
-    }, _this.customComponents = ["BanSwiper", "GoodList"], _temp), _possibleConstructorReturn(_this, _ret);
+    }, _this.touchRecMove = function (e) {
+      e.stopPropagation();
+      var that = _this;
+      var move = e.touches[0]; //移动时的位置
+      var deviationX = 0.3; //左右偏移量(超过这个偏移量不执行下拉操作)
+      var deviationY = 70; //拉动长度（低于这个值的时候不执行）
+      var maxY = 100; //拉动的最大高度
+
+      var start_x = that.state.creState.clientX;
+      var start_y = that.state.creState.clientY;
+      var move_x = move.clientX;
+      var move_y = move.clientY;
+
+      //得到偏移数值
+      var dev = Math.abs(move_x - start_x) / Math.abs(move_y - start_y);
+      //当偏移数值大于设置的偏移数值时则不执行操作
+      if (dev < deviationX) {
+        // 超过deviationX这个偏移量不执行下拉操作
+        //拖动倍率
+        var dragY = Math.abs(move_y - start_y) / 3.5;
+        //下拉操作
+        if (move_y - start_y > 0) {
+          if (dragY >= deviationY) {
+            //    console.log('dragY >= deviationY===>>>>>',dragY ,'>=', deviationY);
+
+            that.setState({
+              downPullText: '释放刷新',
+              downPullTYpe: 'get'
+              // isLoading:true
+            });
+          } else {
+            that.setState({
+              downPullText: '下拉刷新',
+              downPullTYpe: 'no'
+            });
+          }
+          if (dragY >= maxY) {
+            dragY = maxY;
+          }
+          that.setState({
+            dragStyle: {
+              top: dragY + 'px'
+            },
+            downPullStyle: {
+              height: dragY + 'px'
+            },
+            scrollY: false
+          });
+        }
+      }
+    }, _this.reduction = function () {
+      var time = 0.5;
+      var that = _this;
+      that.setState({
+        dragStyle: {
+          top: "0px",
+          transition: "all " + time + "s"
+        },
+        downPullStyle: {
+          height: "0px",
+          transition: "all " + time + "s"
+        },
+        scrollY: true
+      });
+
+      setTimeout(function () {
+        console.log('`````````````````````~~~~~~~~~~~~~`setTimeout---');
+
+        that.setState({
+          dragStyle: {
+            top: "0px"
+          },
+          downPullStyle: {
+            height: "0px"
+          },
+          downPullText: '下拉刷新',
+          downPullTYpe: 'no',
+          upPullText: '上拉加载更多',
+          isLoading: false
+        });
+      }, 500);
+    }, _this.touchEnd = function () {
+      var that = _this;
+      var downPullTYpe = _this.state.downPullTYpe;
+
+      if (downPullTYpe && downPullTYpe == 'get') {
+        console.log(' 鼠标离开且未移动会触发事件-----', downPullTYpe);
+
+        that.setState({ isLoading: true });
+        that.props.dispatch({
+          type: 'home/product',
+          payload: {
+            page: 1,
+            mode: 1,
+            type: 1,
+            filter: 'sort:recomm|c:330602'
+          }
+        }).then(function (res) {
+          console.log('home/product----====》》》》', res);
+        });
+      }
+
+      that.reduction();
+    }, _this.customComponents = ["AtActivityIndicator", "AtLoadMore", "AtToast"], _temp), _possibleConstructorReturn(_this, _ret);
   }
 
   _createClass(Home, [{
     key: "_constructor",
-    value: function _constructor(props) {
-      _get(Home.prototype.__proto__ || Object.getPrototypeOf(Home.prototype), "_constructor", this).call(this, props);
-
+    value: function _constructor() {
+      _get(Home.prototype.__proto__ || Object.getPrototypeOf(Home.prototype), "_constructor", this).apply(this, arguments);
+      this.state = {
+        // 拖动上下滚动
+        dragStyle: {
+          top: "0px"
+        },
+        scrollY: true,
+        creState: {},
+        downPullText: '下拉刷新',
+        status: 'more',
+        isLoading: false
+      };
       this.$$refs = [];
     }
   }, {
     key: "onShareAppMessage",
+
 
     //分享
     value: function onShareAppMessage() {
@@ -93,6 +234,13 @@ var Home = (_dec = (0, _index3.connect)(function (_ref) {
 
     // 小程序上拉加载
     value: function onReachBottom() {
+      var _this2 = this;
+
+      console.log('// 小程序上拉加载');
+      this.setState({
+        status: 'loading',
+        isLoading: true
+      });
       this.props.dispatch({
         type: 'home/save',
         payload: {
@@ -107,19 +255,41 @@ var Home = (_dec = (0, _index3.connect)(function (_ref) {
           type: 1,
           filter: 'sort:recomm|c:330602'
         }
+      }).then(function (res) {
+        console.log(_this2.props, '// 小程序上拉加载,-res===', res);
       });
     }
+
+    // 滚动view
+
+    // 鼠标点击移动开始触发事件
+
+
+    // 推荐列表移动往上触发顶部回弹实现
+
+
+    // 还原初始设置
+
+
+    // 鼠标离开且未移动会触发事件
+
   }, {
     key: "_createData",
+
+
+    // 
+
     value: function _createData() {
+      var _this3 = this;
+
       this.__state = arguments[0] || this.state || {};
       this.__props = arguments[1] || this.props || {};
       var __isRunloopRef = arguments[2];
       var __prefix = this.$prefix;
       ;
-      var $compid__84 = (0, _index.genCompid)(__prefix + "$compid__84");
-      var $compid__85 = (0, _index.genCompid)(__prefix + "$compid__85");
-      var $compid__86 = (0, _index.genCompid)(__prefix + "$compid__86");
+      var $compid__128 = (0, _index.genCompid)(__prefix + "$compid__128");
+      var $compid__129 = (0, _index.genCompid)(__prefix + "$compid__129");
+      var $compid__130 = (0, _index.genCompid)(__prefix + "$compid__130");
 
       var _props = this.__props,
           banneret = _props.banneret,
@@ -127,35 +297,67 @@ var Home = (_dec = (0, _index3.connect)(function (_ref) {
           brands = _props.brands,
           productsList = _props.productsList,
           effects = _props.effects;
+      var _state = this.__state,
+          dragStyle = _state.dragStyle,
+          scrollY = _state.scrollY,
+          downPullStyle = _state.downPullStyle,
+          downPullText = _state.downPullText,
+          status = _state.status,
+          isLoading = _state.isLoading;
+      // console.log('this.props====>>>',this.props);
 
-      console.log('this.props====>>>', this.__props);
+      var Threshold = 50;
+      var anonymousState__temp = (0, _index.internal_inline_style)(downPullStyle);
+      var anonymousState__temp2 = (0, _index.internal_inline_style)(dragStyle);
 
+      this.anonymousFunc0 = function () {
+        _this3.getProduct();
+      };
+
+      var anonymousState__temp3 = {
+        border: 'none'
+      };
+      var anonymousState__temp4 = {
+        border: 'none'
+      };
       _index.propsManager.set({
-        "banneret": banneret.special_topics,
-        "banner": banneret.stars,
-        "home": true
-      }, $compid__84);
+        "content": downPullText
+      }, $compid__128);
       _index.propsManager.set({
-        "banneret": banneret.stars,
-        "banner": banneret.stars,
-        "home": false
-      }, $compid__85);
+        "status": status,
+        "moreText": "\u67E5\u770B\u6570\u636E",
+        "loadingText": "\u6570\u636E\u52A0\u8F7D\u4E2D...",
+        "noMoreText": "\u6CA1\u6709\u66F4\u591A\u4E86",
+        "noMoreTextStyle": anonymousState__temp3,
+        "moreBtnStyle": anonymousState__temp4
+      }, $compid__129);
       _index.propsManager.set({
-        "list": productsList,
-        "loading": effects && effects['home/product']
-      }, $compid__86);
+        "isOpened": isLoading,
+        "text": '加载中...',
+        "status": 'loading'
+      }, $compid__130);
       Object.assign(this.__state, {
-        $compid__84: $compid__84,
-        $compid__85: $compid__85,
-        $compid__86: $compid__86,
-        brands: brands
+        anonymousState__temp: anonymousState__temp,
+        anonymousState__temp2: anonymousState__temp2,
+        anonymousState__temp3: anonymousState__temp3,
+        anonymousState__temp4: anonymousState__temp4,
+        $compid__128: $compid__128,
+        $compid__129: $compid__129,
+        $compid__130: $compid__130,
+        Threshold: Threshold,
+        productsList: productsList
       });
       return this.__state;
+    }
+  }, {
+    key: "anonymousFunc0",
+    value: function anonymousFunc0(e) {
+      ;
     }
   }]);
 
   return Home;
-}(_index.Component), _class2.$$events = ["gotoDetail"], _class2.$$componentPath = "pages/home/index", _temp2)) || _class);
+}(_index.Component), _class2.$$events = ["touchStart", "touchRecMove", "touchEnd", "anonymousFunc0", "onReachBottom", "gotoDetail"], _class2.$$componentPath = "pages/home/index", _temp2)) || _class);
 exports.default = Home;
 
 Component(require('../../npm/@tarojs/taro-weapp/index.js').default.createComponent(Home, true));

@@ -10,6 +10,8 @@ var _index2 = _interopRequireDefault(_index);
 
 var _index3 = require("../npm/dva-core/index.js");
 
+var _reduxLogger = require("../npm/redux-logger/dist/redux-logger.js");
+
 var _index4 = require("../npm/dva-loading/dist/index.js");
 
 var _index5 = _interopRequireDefault(_index4);
@@ -17,8 +19,6 @@ var _index5 = _interopRequireDefault(_index4);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var app = void 0;
-// import { createLogger } from 'redux-logger';
-
 var store = void 0;
 var dispatch = void 0;
 
@@ -33,7 +33,7 @@ var dispatch = void 0;
 
 function createApp(opt) {
   // redux日志
-  // opt.onAction = [createLogger()];
+  opt.onAction = [(0, _reduxLogger.createLogger)()];
   app = (0, _index3.create)(opt);
   app.use((0, _index5.default)({}));
 

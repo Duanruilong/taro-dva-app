@@ -449,6 +449,11 @@
   display: -ms-flexbox;
   display: flex;
   line-height: 1;
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: all 0.3s cubic-bezier(0.55, 0.085, 0.68, 0.53);
+  -o-transition: all 0.3s cubic-bezier(0.55, 0.085, 0.68, 0.53);
+  transition: all 0.3s cubic-bezier(0.55, 0.085, 0.68, 0.53);
   /* elements */
   /* modifiers */ }
   .at-activity-indicator__body {
@@ -475,6 +480,9 @@
     -webkit-transform: translate(-50%, -50%);
         -ms-transform: translate(-50%, -50%);
             transform: translate(-50%, -50%); }
+  .at-activity-indicator--isopened {
+    opacity: 1;
+    visibility: initial; }
 
 /**
  * Default variables

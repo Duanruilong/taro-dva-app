@@ -1,6 +1,6 @@
 "use strict";
 
-var _interopRequireDefault = require("../../@babel/runtime/helpers/interopRequireDefault.js");
+var _interopRequireDefault = require("../npm/@babel/runtime/helpers/interopRequireDefault.js");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -8,17 +8,17 @@ Object.defineProperty(exports, "__esModule", {
 exports.filterHooks = filterHooks;
 exports.default = undefined;
 
-var _objectSpread2 = _interopRequireDefault(require("../../@babel/runtime/helpers/objectSpread.js"));
+var _objectSpread2 = _interopRequireDefault(require("../npm/@babel/runtime/helpers/objectSpread.js"));
 
-var _getIterator2 = _interopRequireDefault(require("../../@babel/runtime/core-js/get-iterator.js"));
+var _getIterator2 = _interopRequireDefault(require("../npm/@babel/runtime/core-js/get-iterator.js"));
 
-var _classCallCheck2 = _interopRequireDefault(require("../../@babel/runtime/helpers/classCallCheck.js"));
+var _classCallCheck2 = _interopRequireDefault(require("../npm/@babel/runtime/helpers/classCallCheck.js"));
 
-var _createClass2 = _interopRequireDefault(require("../../@babel/runtime/helpers/createClass.js"));
+var _createClass2 = _interopRequireDefault(require("../npm/@babel/runtime/helpers/createClass.js"));
 
-var _keys = _interopRequireDefault(require("../../@babel/runtime/core-js/object/keys.js"));
+var _keys = _interopRequireDefault(require("../npm/@babel/runtime/core-js/object/keys.js"));
 
-var _invariant = _interopRequireDefault(require("../../invariant/invariant.js"));
+var _invariant = _interopRequireDefault(require("../npm/invariant/invariant.js"));
 
 var _utils = require("./utils.js");
 

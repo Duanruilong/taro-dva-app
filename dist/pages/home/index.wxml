@@ -2,7 +2,7 @@
     <view class="homePage">
         <view class="tab-content">
             <view class="downDragBox" style="{{anonymousState__temp}}">
-                <at-activity-indicator compid="{{$compid__128}}"></at-activity-indicator>
+                <at-activity-indicator compid="{{$compid__0}}"></at-activity-indicator>
             </view>
             <scroll-view style="{{anonymousState__temp2}}" scroll-y="{{scrollY}}" class="tab-container" upper-threshold="{{Threshold}}" lower-threshold="{{Threshold}}" bindtouchstart="touchStart" catchtouchmove="touchRecMove" bindtouchend="touchEnd" bindscrolltoupper="anonymousFunc0" bindscrolltolower="onReachBottom" scroll-with-animation="{{true}}">
                 <view class="tab-content">
@@ -11,9 +11,9 @@
                     </view>
                 </view>
                 <view class="upDragBox">
-                    <at-load-more compid="{{$compid__129}}"></at-load-more>
+                    <at-load-more compid="{{$compid__1}}"></at-load-more>
                 </view>
-                <at-toast compid="{{$compid__130}}"></at-toast>
+                <at-toast compid="{{$compid__2}}"></at-toast>
             </scroll-view>
         </view>
     </view>

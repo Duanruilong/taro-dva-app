@@ -1,6 +1,6 @@
 "use strict";
 
-var _interopRequireDefault = require("../../@babel/runtime/helpers/interopRequireDefault.js");
+var _interopRequireDefault = require("../npm/@babel/runtime/helpers/interopRequireDefault.js");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -8,7 +8,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.run = run;
 exports.unlisten = unlisten;
 
-var _getIterator2 = _interopRequireDefault(require("../../@babel/runtime/core-js/get-iterator.js"));
+var _getIterator2 = _interopRequireDefault(require("../npm/@babel/runtime/core-js/get-iterator.js"));
 
 var _warning = _interopRequireDefault(require("../npm/warning/warning.js"));
 

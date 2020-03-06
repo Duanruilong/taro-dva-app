@@ -2926,7 +2926,7 @@ function doUpdate(component, prevProps, prevState) {
   }
 
   data['$taroCompReady'] = true;
-  var dataDiff = diffObjToPath(data, component.$scope.data);
+  var dataDiff = taro.getIsUsingDiff() ? diffObjToPath(data, component.$scope.data) : data;
   var __mounted = component.__mounted;
   var snapshot;
 
@@ -3273,38 +3273,63 @@ function createApp(AppClass) {
 }
 
 var RequestQueue = {
-  MAX_REQUEST: 5,
+  MAX_REQUEST: 10,
   queue: [],
+  pendingQueue: [],
   request: function request(options) {
-    this.push(options); // 返回request task
-
-    return this.run();
-  },
-  push: function push(options) {
     this.queue.push(options);
+    return this.run();
   },
   run: function run() {
     var _this = this;
 
-    if (!this.queue.length) {
-      return;
-    }
+    if (!this.queue.length) return;
 
-    if (this.queue.length <= this.MAX_REQUEST) {
-      var options = this.queue.shift();
-      var completeFn = options.complete;
+    var _loop = function _loop() {
+      var options = _this.queue.shift();
 
-      options.complete = function () {
+      var successFn = options.success;
+      var failFn = options.fail;
+
+      options.success = function () {
+        _this.pendingQueue = _this.pendingQueue.filter(function (item) {
+          return item !== options;
+        });
+
+        _this.run();
+
         for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
           args[_key] = arguments[_key];
         }
 
-        completeFn && completeFn.apply(options, args);
-
-        _this.run();
+        successFn && successFn.apply(options, args);
       };
 
-      return wx.request(options);
+      options.fail = function () {
+        _this.pendingQueue = _this.pendingQueue.filter(function (item) {
+          return item !== options;
+        });
+
+        _this.run();
+
+        for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+          args[_key2] = arguments[_key2];
+        }
+
+        failFn && failFn.apply(options, args);
+      };
+
+      _this.pendingQueue.push(options);
+
+      return {
+        v: wx.request(options)
+      };
+    };
+
+    while (this.pendingQueue.length < this.MAX_REQUEST) {
+      var _ret = _loop();
+
+      if (_typeof(_ret) === "object") return _ret.v;
     }
   }
 };
@@ -3380,8 +3405,8 @@ function processApis(taro$$1) {
 
     if (!taro.onAndSyncApis[key] && !taro.noPromiseApis[key]) {
       taro$$1[key] = function (options) {
-        for (var _len2 = arguments.length, args = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
-          args[_key2 - 1] = arguments[_key2];
+        for (var _len3 = arguments.length, args = new Array(_len3 > 1 ? _len3 - 1 : 0), _key3 = 1; _key3 < _len3; _key3++) {
+          args[_key3 - 1] = arguments[_key3];
         }
 
         options = options || {};
@@ -3398,7 +3423,7 @@ function processApis(taro$$1) {
           return wx[key](options);
         }
 
-        if (key === 'navigateTo' || key === 'redirectTo' || key === 'switchTab') {
+        if (key === 'navigateTo' || key === 'redirectTo') {
           var url = obj['url'] ? obj['url'].replace(/^\//, '') : '';
           if (url.indexOf('?') > -1) url = url.split('?')[0];
           var Component = cacheDataGet(url);
@@ -3473,6 +3498,14 @@ function processApis(taro$$1) {
             return p;
           };
 
+          p.headersReceived = function (cb) {
+            if (task) {
+              task.onHeadersReceived(cb);
+            }
+
+            return p;
+          };
+
           p.abort = function (cb) {
             cb && cb();
 
@@ -3488,8 +3521,8 @@ function processApis(taro$$1) {
       };
     } else {
       taro$$1[key] = function () {
-        for (var _len3 = arguments.length, args = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
-          args[_key3] = arguments[_key3];
+        for (var _len4 = arguments.length, args = new Array(_len4), _key4 = 0; _key4 < _len4; _key4++) {
+          args[_key4] = arguments[_key4];
         }
 
         var argsLen = args.length;
@@ -3547,6 +3580,16 @@ function wxCloud(taro$$1) {
   taro$$1.cloud = wxcloud;
 }
 
+function wxEnvObj(taro$$1) {
+  var wxEnv = wx.env || {};
+  var taroEnv = {};
+  var envList = ['USER_DATA_PATH'];
+  envList.forEach(function (key) {
+    return taroEnv[key] = wxEnv[key];
+  });
+  taro$$1.env = taroEnv;
+}
+
 function initNativeApi(taro$$1) {
   processApis(taro$$1);
   taro$$1.request = link.request.bind(link);
@@ -3559,6 +3602,7 @@ function initNativeApi(taro$$1) {
   taro$$1.pxTransform = pxTransform.bind(taro$$1);
   taro$$1.canIUseWebp = canIUseWebp;
   wxCloud(taro$$1);
+  wxEnvObj(taro$$1);
 }
 
 /* eslint-disable camelcase */
@@ -3604,7 +3648,8 @@ var Taro = {
   useContext: taro.useContext,
   createContext: taro.createContext,
   memo: taro.memo,
-  shallowEqual: shallowEqual
+  shallowEqual: shallowEqual,
+  setIsUsingDiff: taro.setIsUsingDiff
 };
 initNativeApi(Taro);
 

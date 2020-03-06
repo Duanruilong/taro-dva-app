@@ -1,13 +1,13 @@
 "use strict";
 
-var _interopRequireDefault = require("../../@babel/runtime/helpers/interopRequireDefault.js");
+var _interopRequireDefault = require("../npm/@babel/runtime/helpers/interopRequireDefault.js");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = prefixNamespace;
 
-var _keys = _interopRequireDefault(require("../../@babel/runtime/core-js/object/keys.js"));
+var _keys = _interopRequireDefault(require("../npm/@babel/runtime/core-js/object/keys.js"));
 
 var _warning = _interopRequireDefault(require("../npm/warning/warning.js"));
 

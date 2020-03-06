@@ -4,6 +4,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
@@ -44,7 +46,7 @@ var Home = (_dec = (0, _index3.connect)(function (_ref) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref2 = Home.__proto__ || Object.getPrototypeOf(Home)).call.apply(_ref2, [this].concat(args))), _this), _this.$usedState = ["anonymousState__temp", "anonymousState__temp2", "anonymousState__temp3", "anonymousState__temp4", "$compid__128", "$compid__129", "$compid__130", "scrollY", "Threshold", "productsList", "dragStyle", "creState", "downPullText", "status", "isLoading", "dispatch", "page", "banneret", "banner", "brands", "effects"], _this.config = {
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref2 = Home.__proto__ || Object.getPrototypeOf(Home)).call.apply(_ref2, [this].concat(args))), _this), _this.$usedState = ["anonymousState__temp", "anonymousState__temp2", "anonymousState__temp3", "anonymousState__temp4", "$compid__0", "$compid__1", "$compid__2", "scrollY", "Threshold", "productsList", "dragStyle", "creState", "downPullText", "status", "isLoading", "dispatch", "page", "banneret", "banner", "brands", "effects"], _this.config = {
       navigationBarTitleText: '首页'
     }, _this.componentDidMount = function () {
       // 获取数据
@@ -215,7 +217,7 @@ var Home = (_dec = (0, _index3.connect)(function (_ref) {
         status: 'more',
         isLoading: false
       };
-      this.$$refs = [];
+      this.$$refs = new _index2.default.RefsArray();
     }
   }, {
     key: "onShareAppMessage",
@@ -287,9 +289,21 @@ var Home = (_dec = (0, _index3.connect)(function (_ref) {
       var __isRunloopRef = arguments[2];
       var __prefix = this.$prefix;
       ;
-      var $compid__128 = (0, _index.genCompid)(__prefix + "$compid__128");
-      var $compid__129 = (0, _index.genCompid)(__prefix + "$compid__129");
-      var $compid__130 = (0, _index.genCompid)(__prefix + "$compid__130");
+
+      var _genCompid = (0, _index.genCompid)(__prefix + "$compid__0"),
+          _genCompid2 = _slicedToArray(_genCompid, 2),
+          $prevCompid__0 = _genCompid2[0],
+          $compid__0 = _genCompid2[1];
+
+      var _genCompid3 = (0, _index.genCompid)(__prefix + "$compid__1"),
+          _genCompid4 = _slicedToArray(_genCompid3, 2),
+          $prevCompid__1 = _genCompid4[0],
+          $compid__1 = _genCompid4[1];
+
+      var _genCompid5 = (0, _index.genCompid)(__prefix + "$compid__2"),
+          _genCompid6 = _slicedToArray(_genCompid5, 2),
+          $prevCompid__2 = _genCompid6[0],
+          $compid__2 = _genCompid6[1];
 
       var _props = this.__props,
           banneret = _props.banneret,
@@ -322,7 +336,7 @@ var Home = (_dec = (0, _index3.connect)(function (_ref) {
       };
       _index.propsManager.set({
         "content": downPullText
-      }, $compid__128);
+      }, $compid__0, $prevCompid__0);
       _index.propsManager.set({
         "status": status,
         "moreText": "\u67E5\u770B\u6570\u636E",
@@ -330,20 +344,20 @@ var Home = (_dec = (0, _index3.connect)(function (_ref) {
         "noMoreText": "\u6CA1\u6709\u66F4\u591A\u4E86",
         "noMoreTextStyle": anonymousState__temp3,
         "moreBtnStyle": anonymousState__temp4
-      }, $compid__129);
+      }, $compid__1, $prevCompid__1);
       _index.propsManager.set({
         "isOpened": isLoading,
         "text": '加载中...',
         "status": 'loading'
-      }, $compid__130);
+      }, $compid__2, $prevCompid__2);
       Object.assign(this.__state, {
         anonymousState__temp: anonymousState__temp,
         anonymousState__temp2: anonymousState__temp2,
         anonymousState__temp3: anonymousState__temp3,
         anonymousState__temp4: anonymousState__temp4,
-        $compid__128: $compid__128,
-        $compid__129: $compid__129,
-        $compid__130: $compid__130,
+        $compid__0: $compid__0,
+        $compid__1: $compid__1,
+        $compid__2: $compid__2,
         Threshold: Threshold,
         productsList: productsList
       });

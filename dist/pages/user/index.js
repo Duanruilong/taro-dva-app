@@ -53,7 +53,7 @@ var User = (_dec = (0, _index3.connect)(function (_ref) {
     value: function _constructor(props) {
       _get(User.prototype.__proto__ || Object.getPrototypeOf(User.prototype), "_constructor", this).call(this, props);
 
-      this.$$refs = [];
+      this.$$refs = new _index2.default.RefsArray();
     }
   }, {
     key: "_createData",

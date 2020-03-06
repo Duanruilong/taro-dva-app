@@ -2193,21 +2193,30 @@ function isArray$1(arg) {
 function isNullOrUndef(o) {
   return isUndefined(o) || o === null;
 }
+var isUsingDiff = true;
+function getIsUsingDiff() {
+  return isUsingDiff;
+}
+function setIsUsingDiff(flag) {
+  isUsingDiff = Boolean(flag);
+}
 
-var Current = {
-  current: null,
-  index: 0
-};
+{
+  exports.Current = {
+    current: null,
+    index: 0
+  };
+}
 
 function forceUpdateCallback() {//
 }
 
 function getHooks(index) {
-  if (Current.current === null) {
+  if (exports.Current.current === null) {
     throw new Error("invalid hooks call: hooks can only be called in a stateless component.");
   }
 
-  var hooks = Current.current.hooks;
+  var hooks = exports.Current.current.hooks;
 
   if (index >= hooks.length) {
     hooks.push({});
@@ -2221,10 +2230,10 @@ function useState(initialState) {
     initialState = initialState();
   }
 
-  var hook = getHooks(Current.index++);
+  var hook = getHooks(exports.Current.index++);
 
   if (!hook.state) {
-    hook.component = Current.current;
+    hook.component = exports.Current.current;
     hook.state = [initialState, function (action) {
       var nextState = isFunction$1(action) ? action(hook.state[0]) : action;
       if (hook.state[0] === nextState) return;
@@ -2238,11 +2247,11 @@ function useState(initialState) {
 }
 
 function usePageLifecycle(callback, lifecycle) {
-  var hook = getHooks(Current.index++);
+  var hook = getHooks(exports.Current.index++);
 
   if (!hook.marked) {
     hook.marked = true;
-    hook.component = Current.current;
+    hook.component = exports.Current.current;
     hook.callback = callback;
     var component = hook.component;
     var originalLifecycle = component[lifecycle];
@@ -2282,20 +2291,20 @@ function useTabItemTap(callback) {
   usePageLifecycle(callback, 'onTabItemTap');
 }
 function useRouter() {
-  var hook = getHooks(Current.index++);
+  var hook = getHooks(exports.Current.index++);
 
   if (!hook.router) {
-    hook.component = Current.current;
+    hook.component = exports.Current.current;
     hook.router = hook.component.$router;
   }
 
   return hook.router;
 }
 function useScope() {
-  var hook = getHooks(Current.index++);
+  var hook = getHooks(exports.Current.index++);
 
   if (!hook.scope) {
-    hook.component = Current.current;
+    hook.component = exports.Current.current;
     hook.scope = hook.component.$scope;
   }
 
@@ -2306,10 +2315,10 @@ function useReducer(reducer, initialState, initializer) {
     initialState = initialState();
   }
 
-  var hook = getHooks(Current.index++);
+  var hook = getHooks(exports.Current.index++);
 
   if (!hook.state) {
-    hook.component = Current.current;
+    hook.component = exports.Current.current;
     hook.state = [isUndefined(initializer) ? initialState : initializer(initialState), function (action) {
       hook.state[0] = reducer(hook.state[0], action);
       hook.component._disable = false;
@@ -2372,9 +2381,9 @@ function invokeScheduleEffects(component) {
 }
 
 function useEffectImpl(effect, deps, delay) {
-  var hook = getHooks(Current.index++);
+  var hook = getHooks(exports.Current.index++);
 
-  if (Current.current._disableEffect || !Current.current.__isReady) {
+  if (exports.Current.current._disableEffect || !exports.Current.current.__isReady) {
     return;
   }
 
@@ -2383,10 +2392,10 @@ function useEffectImpl(effect, deps, delay) {
     hook.deps = deps;
 
     if (delay) {
-      Current.current.effects = Current.current.effects.concat(hook);
-      invokeScheduleEffects(Current.current);
+      exports.Current.current.effects = exports.Current.current.effects.concat(hook);
+      invokeScheduleEffects(exports.Current.current);
     } else {
-      Current.current.layoutEffects = Current.current.layoutEffects.concat(hook);
+      exports.Current.current.layoutEffects = exports.Current.current.layoutEffects.concat(hook);
     }
   }
 }
@@ -2398,7 +2407,7 @@ function useLayoutEffect(effect, deps) {
   useEffectImpl(effect, deps);
 }
 function useRef(initialValue) {
-  var hook = getHooks(Current.index++);
+  var hook = getHooks(exports.Current.index++);
 
   if (!hook.ref) {
     hook.ref = {
@@ -2409,7 +2418,7 @@ function useRef(initialValue) {
   return hook.ref;
 }
 function useMemo(factory, deps) {
-  var hook = getHooks(Current.index++);
+  var hook = getHooks(exports.Current.index++);
 
   if (areDepsChanged(hook.deps, deps)) {
     hook.deps = deps;
@@ -2447,11 +2456,11 @@ function useContext(_ref) {
     return context._defaultValue;
   }
 
-  var hook = getHooks(Current.index++);
+  var hook = getHooks(exports.Current.index++);
 
   if (isUndefined(hook.context)) {
     hook.context = true;
-    hook.component = Current.current;
+    hook.component = exports.Current.current;
     emitter.on(function (_) {
       if (hook.component) {
         hook.component._disable = false;
@@ -2611,7 +2620,7 @@ var index = {
   interceptors: interceptors,
   RefsArray: RefsArray,
   handleLoopRef: handleLoopRef,
-  Current: Current,
+  Current: exports.Current,
   useEffect: useEffect,
   useLayoutEffect: useLayoutEffect,
   useReducer: useReducer,
@@ -2633,7 +2642,9 @@ var index = {
   invokeEffects: invokeEffects,
   useContext: useContext,
   createContext: createContext,
-  memo: memo
+  memo: memo,
+  getIsUsingDiff: getIsUsingDiff,
+  setIsUsingDiff: setIsUsingDiff
 };
 
 exports.Component = Component;
@@ -2657,7 +2668,6 @@ exports.Link = Link;
 exports.interceptors = interceptors;
 exports.RefsArray = RefsArray;
 exports.handleLoopRef = handleLoopRef;
-exports.Current = Current;
 exports.useEffect = useEffect;
 exports.useLayoutEffect = useLayoutEffect;
 exports.useReducer = useReducer;
@@ -2680,5 +2690,7 @@ exports.invokeEffects = invokeEffects;
 exports.useContext = useContext;
 exports.createContext = createContext;
 exports.memo = memo;
+exports.getIsUsingDiff = getIsUsingDiff;
+exports.setIsUsingDiff = setIsUsingDiff;
 exports.default = index;
 //# sourceMappingURL=index.js.map

@@ -52,7 +52,7 @@ var Goodlist = (_temp2 = _class = function (_BaseComponent) {
     value: function _constructor(props) {
       _get(Goodlist.prototype.__proto__ || Object.getPrototypeOf(Goodlist.prototype), "_constructor", this).call(this, props);
 
-      this.$$refs = [];
+      this.$$refs = new _index2.default.RefsArray();
     }
   }, {
     key: "_createData",

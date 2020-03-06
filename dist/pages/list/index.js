@@ -4,6 +4,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
@@ -45,7 +47,7 @@ var List = (_dec = (0, _index3.connect)(function (_ref) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref2 = List.__proto__ || Object.getPrototypeOf(List)).call.apply(_ref2, [this].concat(args))), _this), _this.$usedState = ["$compid__1", "dispatch", "page", "banneret", "banner", "brands", "productsList", "effects"], _this.config = {
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref2 = List.__proto__ || Object.getPrototypeOf(List)).call.apply(_ref2, [this].concat(args))), _this), _this.$usedState = ["$compid__3", "dispatch", "page", "banneret", "banner", "brands", "productsList", "effects"], _this.config = {
       navigationBarTitleText: '列表'
     }, _this.componentDidMount = function () {
       _this.props.dispatch({
@@ -65,7 +67,7 @@ var List = (_dec = (0, _index3.connect)(function (_ref) {
     value: function _constructor(props) {
       _get(List.prototype.__proto__ || Object.getPrototypeOf(List.prototype), "_constructor", this).call(this, props);
 
-      this.$$refs = [];
+      this.$$refs = new _index2.default.RefsArray();
     }
   }, {
     key: "onReachBottom",
@@ -97,7 +99,11 @@ var List = (_dec = (0, _index3.connect)(function (_ref) {
       var __isRunloopRef = arguments[2];
       var __prefix = this.$prefix;
       ;
-      var $compid__1 = (0, _index.genCompid)(__prefix + "$compid__1");
+
+      var _genCompid = (0, _index.genCompid)(__prefix + "$compid__3"),
+          _genCompid2 = _slicedToArray(_genCompid, 2),
+          $prevCompid__3 = _genCompid2[0],
+          $compid__3 = _genCompid2[1];
 
       var _props = this.__props,
           banneret = _props.banneret,
@@ -111,9 +117,9 @@ var List = (_dec = (0, _index3.connect)(function (_ref) {
       _index.propsManager.set({
         "list": productsList,
         "loading": effects && effects['home/product']
-      }, $compid__1);
+      }, $compid__3, $prevCompid__3);
       Object.assign(this.__state, {
-        $compid__1: $compid__1
+        $compid__3: $compid__3
       });
       return this.__state;
     }
